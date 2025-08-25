@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="card card-register mx-auto mt-2">
+    <div class="card-header">
+      {{ isEditMode ? 'Update Company' : 'Add New Company' }}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="name">Company Name:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name"
+            formControlName="COMPANY"
+            placeholder="Company Name">
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn btn-primary w-100"
+          [disabled]="loading || companyForm.invalid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update Company' : 'Save Company') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

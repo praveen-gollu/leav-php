@@ -1,0 +1,29 @@
+.content-wrapper {
+  min-height: calc(100vh - 56px);
+  padding-top: 1rem;
+  margin-left: 250px;
+  background: white;
+}
+
+@media (max-width: 991px) {
+  .content-wrapper {
+    margin-left: 0;
+  }
+}
+
+.card-body-icon {
+  position: absolute;
+  z-index: 0;
+  top: -25px;
+  right: -25px;
+  font-size: 5rem;
+  transform: rotate(15deg);
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.o-hidden {
+  overflow: hidden !important;
+}

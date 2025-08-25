@@ -1,0 +1,87 @@
+<ul class="navbar-nav navbar-sidenav bg-dark" id="exampleAccordion">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+      <i class="fa fa-fw fa-dashboard"></i>
+      <span class="nav-link-text">Dashboard</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link nav-link-collapse collapsed" data-bs-toggle="collapse" href="#profileCollapse">
+      <i class="fa fa-fw fa-user"></i>
+      <span class="nav-link-text">Profile</span>
+    </a>
+    <ul class="sidenav-second-level collapse" id="profileCollapse">
+      <li><a routerLink="/employees/profile">View Profile</a></li>
+      <li><a routerLink="/employees/reset-password">Reset Password</a></li>
+    </ul>
+  </li>
+
+  <!-- Leave Management for Normal Users -->
+  <li class="nav-item" *ngIf="isNormalUser()">
+    <a class="nav-link nav-link-collapse collapsed" data-bs-toggle="collapse" href="#leaveCollapse">
+      <i class="fa fa-fw fa-cubes"></i>
+      <span class="nav-link-text">Leave</span>
+    </a>
+    <ul class="sidenav-second-level collapse" id="leaveCollapse">
+      <li><a routerLink="/leaves/apply">Apply Leave</a></li>
+      <li><a routerLink="/leaves">Manage Leave</a></li>
+    </ul>
+  </li>
+
+  <!-- Leave Management for Supervisors/Managers -->
+  <li class="nav-item" *ngIf="isSupervisorOrManager()">
+    <a class="nav-link nav-link-collapse collapsed" data-bs-toggle="collapse" href="#leaveCollapseSuper">
+      <i class="fa fa-fw fa-cubes"></i>
+      <span class="nav-link-text">Leave</span>
+    </a>
+    <ul class="sidenav-second-level collapse" id="leaveCollapseSuper">
+      <li><a routerLink="/leaves/apply">Apply Leave</a></li>
+      <li><a routerLink="/leaves">Manage Leave</a></li>
+    </ul>
+  </li>
+
+  <!-- Admin Menu Items -->
+  <ng-container *ngIf="isAdmin()">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/companies">
+        <i class="fa fa-university"></i>
+        <span class="nav-link-text">Company</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/departments">
+        <i class="fa fa-fw fa-archive"></i>
+        <span class="nav-link-text">Department</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/leave-types">
+        <i class="fa fa-fw fa-cube"></i>
+        <span class="nav-link-text">Leave Type</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/employees">
+        <i class="fa fa-fw fa-users"></i>
+        <span class="nav-link-text">Employee</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link nav-link-collapse collapsed" data-bs-toggle="collapse" href="#adminLeaveCollapse">
+        <i class="fa fa-fw fa-cubes"></i>
+        <span class="nav-link-text">Leave</span>
+      </a>
+      <ul class="sidenav-second-level collapse" id="adminLeaveCollapse">
+        <li><a routerLink="/leaves/apply">Apply Leave</a></li>
+        <li><a routerLink="/leaves">Manage Leave</a></li>
+        <li><a routerLink="/leaves/approved">Approved Leave</a></li>
+        <li><a routerLink="/leaves/rejected">Rejected Leave</a></li>
+      </ul>
+    </li>
+  </ng-container>
+</ul>

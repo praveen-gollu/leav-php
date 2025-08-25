@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-university"></i> List of Companies
+      <a routerLink="/companies/add" class="btn btn-primary btn-sm float-end">
+        <i class="fa fa-plus-circle"></i> New
+      </a>
+    </div>
+    
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Company Name</th>
+              <th width="15%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="loading">
+              <td colspan="3" class="text-center">Loading...</td>
+            </tr>
+            <tr *ngFor="let company of companies">
+              <td>{{ company.COMPID }}</td>
+              <td>{{ company.COMPANY }}</td>
+              <td class="text-center">
+                <a [routerLink]="['/companies/edit', company.COMPID]" class="btn btn-primary btn-sm me-1">
+                  <span class="fa fa-edit"></span> Edit
+                </a>
+                <button (click)="deleteCompany(company.COMPID)" class="btn btn-danger btn-sm">
+                  <span class="fa fa-trash-o"></span> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="card card-register mx-auto mt-2">
+    <div class="card-header">
+      {{ isEditMode ? 'Update Leave Application' : 'Add New Leave Application' }}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="employid">Employee ID:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="employid"
+            formControlName="EMPLOYID"
+            readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="name">Name:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name"
+            [value]="currentUser?.EMPNAME"
+            readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="sex">Sex:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="sex"
+            [value]="currentUser?.EMPSEX"
+            readonly>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="aveleave">Available Leave:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="aveleave"
+            [value]="currentUser?.AVELEAVE"
+            readonly>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="datestart">Date From:</label>
+              <input 
+                type="date" 
+                class="form-control" 
+                id="datestart"
+                formControlName="DATESTART"
+                [readonly]="isEditMode">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="dateend">Date To:</label>
+              <input 
+                type="date" 
+                class="form-control" 
+                id="dateend"
+                formControlName="DATEEND"
+                [readonly]="isEditMode">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="shifttime">Shift Time:</label>
+              <select class="form-control" formControlName="SHIFTTIME" id="shifttime" [disabled]="isEditMode">
+                <option value="All Day">All Day</option>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label for="leavetype">Type of Leave:</label>
+              <select class="form-control" formControlName="TYPEOFLEAVE" id="leavetype" [disabled]="isEditMode">
+                <option value="">Select Leave Type</option>
+                <option *ngFor="let type of leaveTypes" [value]="type.LEAVETYPE">
+                  {{ type.LEAVETYPE }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="reason">Reason:</label>
+          <textarea 
+            class="form-control" 
+            id="reason"
+            formControlName="REASON"
+            rows="3"
+            [readonly]="isEditMode"
+            placeholder="Enter reason for leave"></textarea>
+        </div>
+
+        <div *ngIf="isEditMode && isAdmin()" class="form-group mb-3">
+          <label for="adminremarks">Admin Remarks:</label>
+          <textarea 
+            class="form-control" 
+            id="adminremarks"
+            formControlName="ADMINREMARKS"
+            rows="3"></textarea>
+        </div>
+
+        <div *ngIf="isEditMode && isAdmin()" class="form-group mb-3">
+          <label for="leavestatus">Leave Status:</label>
+          <select class="form-control" formControlName="LEAVESTATUS" id="leavestatus">
+            <option value="PENDING">PENDING</option>
+            <option value="APPROVED">APPROVED</option>
+            <option value="REJECTED">REJECTED</option>
+          </select>
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn btn-primary w-100"
+          [disabled]="loading || leaveForm.invalid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update Leave' : 'Save Leave') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

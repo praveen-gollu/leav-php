@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-table"></i> List of Leave Applications
+      <a *ngIf="canAdd()" routerLink="/leaves/apply" class="btn btn-primary btn-sm float-end">
+        <i class="fa fa-plus-circle"></i> New
+      </a>
+    </div>
+    
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>EMP. ID</th>
+              <th>Employee Name</th>
+              <th>DATE FROM</th>
+              <th>DATE TO</th>
+              <th>NO. OF DAYS</th>
+              <th>SHIFT TIME</th>
+              <th>TYPE</th>
+              <th>REASON</th>
+              <th>STATUS</th>
+              <th>REMARKS</th>
+              <th>DATE POSTED</th>
+              <th *ngIf="canEdit()">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="loading">
+              <td [attr.colspan]="canEdit() ? 12 : 11" class="text-center">Loading...</td>
+            </tr>
+            <tr *ngFor="let leave of leaves">
+              <td>{{ leave.EMPLOYID }}</td>
+              <td>{{ leave.EMPNAME }}</td>
+              <td>{{ leave.DATESTART | date:'shortDate' }}</td>
+              <td>{{ leave.DATEEND | date:'shortDate' }}</td>
+              <td>{{ leave.NODAYS }}</td>
+              <td>{{ leave.SHIFTTIME }}</td>
+              <td>{{ leave.TYPEOFLEAVE }}</td>
+              <td>{{ leave.REASON }}</td>
+              <td>
+                <span [class]="getStatusBadgeClass(leave.LEAVESTATUS)">
+                  {{ leave.LEAVESTATUS }}
+                </span>
+              </td>
+              <td>{{ leave.ADMINREMARKS }}</td>
+              <td>{{ leave.DATEPOSTED | date:'shortDate' }}</td>
+              <td *ngIf="canEdit()" class="text-center">
+                <a [routerLink]="['/leaves/edit', leave.LEAVEID]" class="btn btn-primary btn-sm">
+                  <span class="fa fa-edit"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

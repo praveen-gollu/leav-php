@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="card card-register mx-auto mt-2">
+    <div class="card-header">
+      {{ isEditMode ? 'Update Employee' : 'Add New Employee' }}
+    </div>
+    <div class="card-body">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="employid">Employee ID:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="employid"
+            formControlName="EMPLOYID"
+            placeholder="Employee ID"
+            [readonly]="isEditMode">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="name">Name:</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name"
+            formControlName="EMPNAME"
+            placeholder="Employee Name">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="sex">Sex:</label>
+          <select class="form-control" formControlName="EMPSEX" id="sex">
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="username">Email/Username:</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="username"
+            formControlName="USERNAME"
+            placeholder="Email Address">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="company">Company:</label>
+          <select class="form-control" formControlName="COMPANY" id="company">
+            <option value="">Select Company</option>
+            <option *ngFor="let company of companies" [value]="company.COMPANY">
+              {{ company.COMPANY }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="department">Department:</label>
+          <select class="form-control" formControlName="DEPARTMENT" id="department">
+            <option value="">Select Department</option>
+            <option *ngFor="let dept of departments" [value]="dept.DEPTNAME">
+              {{ dept.DEPTNAME }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3" *ngIf="!isEditMode">
+          <label for="pass">Password:</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="pass"
+            formControlName="PASSWRD"
+            placeholder="Password">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="type">Type:</label>
+          <select class="form-control" formControlName="EMPPOSITION" id="type">
+            <option value="Administrator">Administrator</option>
+            <option value="Normal user">Normal user</option>
+            <option value="Supervisor user">Supervisor user</option>
+            <option value="Manager user">Manager user</option>
+            <option value="Boss User">Boss User</option>
+          </select>
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn btn-primary w-100"
+          [disabled]="loading || employeeForm.invalid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update Employee' : 'Save Employee') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
